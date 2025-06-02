@@ -763,15 +763,14 @@ async def get_task_status(task_id: str):
         &quot;status&quot;: task_result.status,
         &quot;result&quot;: task_result.result if task_result.ready() else None
     }
- ```
-
-- В `docker-compose.yml` добавлены сервисы:
-  - `redis` — брокер сообщений
-  - `celery_worker` — исполняет фоновые задачи
-
-
 </code></pre>
-<p>version: "3.8"</p>
+<ul>
+<li>В <code>docker-compose.yml</code> добавлены сервисы:</li>
+<li><code>redis</code> — брокер сообщений</li>
+<li><code>celery_worker</code> — исполняет фоновые задачи</li>
+</ul>
+<p>```
+version: "3.8"</p>
 <p>services:
   main_app:
     build:
