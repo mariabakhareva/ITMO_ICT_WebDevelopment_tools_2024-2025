@@ -769,7 +769,8 @@ async def get_task_status(task_id: str):
 <li><code>redis</code> — брокер сообщений</li>
 <li><code>celery_worker</code> — исполняет фоновые задачи</li>
 </ul>
-<pre><code>version: &quot;3.8&quot;
+<pre><code>
+version: &quot;3.8&quot;
 
 services:
   main_app:
@@ -833,6 +834,7 @@ services:
 
 volumes:
   pg_data:
+
 </code></pre>
 <ul>
 <li>Все сервисы связаны через одну Docker-сеть и используют общие тома и переменные окружения.</li>
