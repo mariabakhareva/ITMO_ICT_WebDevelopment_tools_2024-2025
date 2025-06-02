@@ -769,14 +769,14 @@ async def get_task_status(task_id: str):
 <li><code>redis</code> — брокер сообщений</li>
 <li><code>celery_worker</code> — исполняет фоновые задачи</li>
 </ul>
-<p>```
-version: "3.8"</p>
-<p>services:
+<pre><code>version: &quot;3.8&quot;
+
+services:
   main_app:
     build:
       context: ./main_app
     ports:
-      - "8000:8000"
+      - &quot;8000:8000&quot;
     depends_on:
       - db
       - redis
@@ -785,20 +785,22 @@ version: "3.8"</p>
     command: uvicorn main:app --host 0.0.0.0 --port 8000
     working_dir: /app
     volumes:
-      - ./main_app:/app</p>
-<p>parser_app:
+      - ./main_app:/app
+
+  parser_app:
     build:
       context: ./parser_app
     ports:
-      - "8001:8000"
+      - &quot;8001:8000&quot;
     depends_on:
       - db
     env_file:
       - .env
     working_dir: /app
     volumes:
-      - ./parser_app:/app</p>
-<p>celery_worker:
+      - ./parser_app:/app
+
+  celery_worker:
     build:
       context: ./main_app
     depends_on:
@@ -809,12 +811,15 @@ version: "3.8"</p>
     working_dir: /app
     volumes:
       - ./main_app:/app
-    command: celery -A celery_main.celery_app worker --loglevel=info -Q parsing</p>
-<p>redis:
+    command: celery -A celery_main.celery_app worker --loglevel=info -Q parsing
+
+
+  redis:
     image: redis:7-alpine
     ports:
-      - "6379:6379"</p>
-<p>db:
+      - &quot;6379:6379&quot;
+
+  db:
     image: postgres:15
     restart: always
     environment:
@@ -822,12 +827,13 @@ version: "3.8"</p>
       POSTGRES_PASSWORD: maria
       POSTGRES_DB: web_lab1
     ports:
-      - "5433:5432"
+      - &quot;5433:5432&quot;
     volumes:
-      - pg_data:/var/lib/postgresql/data</p>
-<p>volumes:
+      - pg_data:/var/lib/postgresql/data
+
+volumes:
   pg_data:
- ```</p>
+</code></pre>
 <ul>
 <li>Все сервисы связаны через одну Docker-сеть и используют общие тома и переменные окружения.</li>
 </ul>
